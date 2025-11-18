@@ -38,6 +38,6 @@ https://cmapscloud.ihmc.us:443/rid=222NBYJNP-20YSGHS-ML0KTG
 ## Modelo Instrucional
 
 Acesse o modelo instrucional no link a seguir:  
-https://lucid.app/lucidchart/6475891b-2603-4113-8a0b-f31c65572830/edit?viewport_loc=906%2C98%2C3216%2C1534%2C0_0&invitationId=inv_77c90f4d-0384-4774-ae9d-58fee3f27fb9
+https://lucid.app/lucidchart/05c4dcb5-3b42-439c-aa24-4aae6276ffc8/edit?viewport_loc=-936%2C512%2C2144%2C1023%2C0_0&invitationId=inv_5b7b6a38-8ac9-41b5-ab95-f6efe5277cbb
 
 ---
