@@ -4,146 +4,143 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subproblemas</title>
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    :root{
-      --bg: #dff3ff;
-      --card: #ffffff;
-      --radius: 16px;
-      --gap: 20px;
-      --maxw: 900px;
-      --text-color: #0b3040;
+    /* Blocos arrastáveis */
+    .avaliacao-section {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background: #fafafa;
     }
 
-    *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, var(--bg), #e6f9ff 60%);
-      color: var(--text-color);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    .drag-container, .drop-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px;
+      border: 2px dashed #bbb;
+      border-radius: 6px;
+      min-height: 150px;
+      background: #fff;
     }
 
-    .page{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:48px 16px;
+    .drag-item {
+      padding: 10px;
+      background: #e8f0ff;
+      border: 1px solid #8aa7ff;
+      border-radius: 6px;
+      cursor: grab;
+      font-weight: 500;
     }
 
-    .card{
-      width:100%;
-      max-width:var(--maxw);
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:var(--gap);
+    .drag-item:active {
+      cursor: grabbing;
     }
 
-    .title-box{
-      background:var(--card);
-      padding:22px 24px;
-      border-radius: calc(var(--radius) + 4px);
-      box-shadow: 0 6px 18px rgba(11,48,64,0.06);
-      font-size:clamp(20px, 3.6vw, 28px);
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .drop-zone.highlight {
+      border-color: #4caf50;
+      background: #f0ffef;
     }
 
-    .text-block{
-      background:var(--card);
-      padding:18px 20px;
-      border-radius:var(--radius);
-      box-shadow: 0 6px 14px rgba(11,48,64,0.04);
-      line-height:1.5;
-      font-size:16px;
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:6px;
-    }
-
-    .btn{
-      background: var(--card);
-      border:0;
-      padding:12px 18px;
-      border-radius:999px;
-      box-shadow: 0 6px 12px rgba(11,48,64,0.06);
-      cursor:pointer;
-      font-weight:600;
-      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
-    }
-
-    .btn:disabled{
-      background:#e5e5e5;
-      cursor:not-allowed;
-      opacity:0.8;
-    }
-
-    .btn:active{transform:translateY(1px)}
-    .btn:focus{outline:3px solid rgba(11,48,64,0.08)}
-
-    .btn.secondary{
-      padding:10px 16px;
-    }
-
-    .btn-danger{
-      background:#ffdddd;
-      color:#7a0000;
-      font-weight:700;
-    }
-
-    @media (min-width:700px){
-      .card{
-        grid-template-columns: 1fr;
-      }
-      .controls{
-        display:flex;
-      }
-    }
-    
-    .status-badge{
-      float:right;
-      padding:4px 10px;
-      border-radius:12px;
-      font-size:14px;
-      font-weight:600;
-      color:white;
-    }
-
-    .status-pendente{
-      background:#7e7e7e;
-    }
-
-    .status-concluido{
-      background:#2e9d3d;
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
   <main class="page">
-    <section class="card" role="main" aria-labelledby="page-title">
+
+    <section role="main" aria-labelledby="page-title" style="width: 80%;">
       <h1 id="page-title" class="title-box">2. Subproblemas
         <span id="statusBadge" class="status-badge">Pendente</span>
       </h1>
 
-      <article class="text-block">Este bloco contém uma explicação inicial do problema. Coloque aqui o enunciado, objetivos e quaisquer observações gerais que ajudem o aluno a entender o que é pedido.</article>
-
-      <article class="text-block">Este segundo bloco pode apresentar restrições, exemplos ou dicas sobre como decompor o problema em partes menores.</article>
+      <article class="text-block">
+        <h2>
+          Assim como alguns problemas envolvem vários problemas menores, uma solução pode envolver várias soluções menores. Um <b style="color: blue;">algoritmo</b> para o problema principal pode ser criado reunindo as soluções para os subproblemas dele.
+        </h2>
+      </article>
 
       <article class="text-block">
-        O terceiro bloco pode trazer critérios de avaliação, entrada/saída esperadas ou perguntas de verificação para guiar a solução.
-        <br><br>
-        <button id="concluirBtn" class="btn" type="button">Concluir fase</button>
-        <button id="apagarBtn" class="btn btn-danger" type="button">Apagar avanço</button>
+        <b>Alguns problemas podem apresentar partes que são um problema por si só.</b>
+        <p>
+          Às vezes, quando estamos resolvendo um problema, descobrimos que uma parte dele já é outro problema separado. É como montar um quebra-cabeça: antes de juntar tudo, precisamos montar algumas peças menores. Essas partes menores são como pequenos problemas dentro do problema maior, e resolver cada uma delas ajuda a entender e solucionar tudo no final.
+        </p>
       </article>
+
+      <article class="text-block">
+
+        <h2>Exemplo: calcular a área de um estábulo.</h2>
+
+        <p>
+        Uma fazenda retangular, que mede 50 metros de largura e o dobro de comprimento, é dividida ao meio em diagonal, formando dois triângulos. Em um desses triângulos será construído um estábulo. Qual será a área final dele?
+        </p>
+
+        <h3>Sequência de passos:</h3>
+
+        <ol>
+          <li>Calcular o comprimento da fazenda (o dobro da largura).</li>
+          <li style="color: green">Multiplicar o comprimento pela largura.</li>
+          <li style="color: green">Dividir o resultado por 2.</li>
+        </ol>
+
+        <h3>Subproblema: Cálculo da área de um triângulo</h3>
+
+        <p>
+          O estábulo é um triângulo. Esse problema envolve o cálculo da área de um triângulo. Os passos desse subproblema estão destacados em verde.
+        </p>
+
+      </article>
+
+      <article class="text-block">
+        <h2>Atividade: identifique as subreceitas dentro da receita de bolo</h2>
+        <p>Arraste os bloco da área abaixo que correspondem a uma subreceita para a área de subreceitas.</p>
+        <div class="pool" id="pool" aria-label="Itens para classificar">
+          <h3>Itens:</h3>
+          <!-- draggable items injected by JS -->
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start;">
+          <div style="flex:1">
+            <div class="dropzone drop-green" id="zone-fixed" data-kind="fixa" aria-label="Caixa de informação fixa">
+              <div class="drop-title"><span>Subreceitas</span><span></span></div>
+              <div id="fixedList" class="drop-grid" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div style="flex:1;display: none;">
+            <div class="dropzone drop-blue" id="zone-variable" data-kind="variavel" aria-label="Caixa de informação variável">
+              <div class="drop-title"><span>Informação variável</span><span> (azul)</span></div>
+              <div id="variableList" class="drop-grid" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div style="flex:1;display: none;" >
+            <div class="dropzone drop-orange" id="zone-step" data-kind="passo" aria-label="Caixa de passo">
+              <div class="drop-title"><span>Passo</span><span> (laranja)</span></div>
+              <div id="stepList" class="drop-grid" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:8px; align-items:center;">
+          <button id="verifyBtn" class="btn secondary">Verificar</button>
+          <button id="resetClassBtn" class="btn">Resetar classificações</button>
+        </div>
+
+        <div id="feedback" style="margin-top:12px;"></div>
+        
+      </article>
+
+      <div style="display:flex; gap:8px;">
+        <button id="concluirBtn" class="btn" type="button" disabled>Concluir fase</button>
+        <button id="apagarBtn" class="btn btn-danger" type="button">Apagar avanço</button>
+      </div>
 
       <div class="controls" aria-hidden="false">
         <button class="btn left" id="backBtn" type="button">Voltar</button>
@@ -157,28 +154,275 @@
   </main>
 
   <script>
+    /*******************************
+     * Configurações e dados
+     *******************************/
     const fase = "fase 2";
+    const storageKey = "classificacoes_fase1";
+
+    // Itens para classificar: id, texto, tipoCorreto ("fixa","variavel","passo") or "irrelevante"
+    const items = [
+      { id: "i1", text: "Separe os ingredientes.", correct: null },
+      { id: "i2", text: "Preaqueça o forno.", correct: null },
+      { id: "i3", text: "Misture manteiga e açúcar.", correct: null },
+      { id: "i4", text: "Adicione os ovos.", correct: null },
+      { id: "i5", text: "Adicione e misture os ingredientes secos.", correct: null },
+      { id: "i6", text: "Adicione e misture o leite.", correct: null },
+      { id: "i7", text: "Asse a massa.", correct:  null },
+      { id: "i8", text: "Misture leite condensado, manteiga e chocolate em pó.", correct: "subreceita" },
+      { id: "i9", text: "Cozinhe até o brigadeiro engrossar.", correct: "subreceita" },
+      { id: "i10", text: "Misture leite condensado, manteiga e coco ralado.", correct: "subreceita" },
+      { id: "i11", text: "Cozinhe até o beijinho desgrudar do fundo da panela.", correct: "subreceita" },
+      { id: "i12", text: "Enrole e passe no coco ralado.", correct: "subreceita" },
+      { id: "i13", text: "Desenforme e corte o bolo.", correct:  null },
+      { id: "i14", text: "Recheie com brigadeiro.", correct:  null },
+      { id: "i15", text: "Decore a superfície com os beijinhos.", correct:  null },
+    ];
+
+
+    // Elementos DOM
+    const pool = document.getElementById('pool');
+    const fixedList = document.getElementById('fixedList');
+    const variableList = document.getElementById('variableList');
+    const stepList = document.getElementById('stepList');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const resetClassBtn = document.getElementById('resetClassBtn');
+    const concluirBtn = document.getElementById('concluirBtn');
+    const apagarBtn = document.getElementById('apagarBtn');
+    const statusBadge = document.getElementById('statusBadge');
+    const feedback = document.getElementById('feedback');
 
     const backBtn = document.getElementById('backBtn');
     const jumpBtn = document.getElementById('jumpBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const concluirBtn = document.getElementById('concluirBtn');
-    const apagarBtn = document.getElementById('apagarBtn');
 
-    const statusBadge = document.getElementById('statusBadge');
+    // Drag state
+    let dragId = null;
 
-    function voltarPagina() {
-      window.location.href = 'fase 1.html';
+    /*******************************
+     * Inicialização
+     *******************************/
+    function shuffleArray(a){
+      for(let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
 
-    function irParaProximaFase() {
-      window.location.href = 'fase 3.html';
+    function createDraggable(item){
+      const div = document.createElement('div');
+      div.className = 'draggable';
+      div.setAttribute('draggable', 'true');
+      div.id = item.id;
+      div.textContent = item.text;
+      div.dataset.correct = item.correct;
+      div.setAttribute('role','listitem');
+      div.setAttribute('aria-grabbed','false');
+
+      div.addEventListener('dragstart', (e) => {
+        dragId = item.id;
+        e.dataTransfer.setData('text/plain', item.id);
+        e.dataTransfer.effectAllowed = 'move';
+        div.setAttribute('aria-grabbed','true');
+      });
+
+      div.addEventListener('dragend', () => {
+        dragId = null;
+        div.setAttribute('aria-grabbed','false');
+      });
+
+      return div;
     }
 
-    function irParaOutraFase(){
-      window.location.href = 'fase 4.html';
+    // Render pool (shuffle)
+    function renderPool(){
+      pool.querySelectorAll('.draggable').forEach(n => n.remove());
+      const shuffled = shuffleArray(items.slice());
+      shuffled.forEach(it => {
+        const node = createDraggable(it);
+        pool.appendChild(node);
+      });
     }
 
+    // Dropzone handlers
+    function allowDrop(e){ e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
+    function onZoneDragEnter(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
+    function onZoneDragLeave(e){ e.currentTarget.classList.remove('over'); }
+
+    function onDrop(e){
+      e.preventDefault();
+      const id = e.dataTransfer.getData('text/plain');
+      const node = document.getElementById(id);
+      if(!node) return;
+      const zone = e.currentTarget;
+      zone.classList.remove('over');
+
+      // Append node to zone container element (the inner list)
+      const inner = zone.querySelector('.drop-grid');
+      inner.appendChild(node);
+
+      saveClassificationsToStorage(); // persist
+    }
+
+    // Setup dropzones
+    function setupDropzones(){
+      const zones = document.querySelectorAll('.dropzone');
+      zones.forEach(z => {
+        z.addEventListener('dragover', allowDrop);
+        z.addEventListener('dragenter', onZoneDragEnter);
+        z.addEventListener('dragleave', onZoneDragLeave);
+        z.addEventListener('drop', onDrop);
+      });
+      // Make pool accept drops (to return an item)
+      pool.addEventListener('dragover', allowDrop);
+      pool.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const id = e.dataTransfer.getData('text/plain');
+        const node = document.getElementById(id);
+        if(node){
+          pool.appendChild(node);
+          saveClassificationsToStorage();
+        }
+      });
+    }
+
+    /*******************************
+     * Check / verify logic
+     *******************************/
+    function gatherAssignments(){
+      // return map id => assignedKind ('fixa','variavel','passo' or null if in pool)
+      const map = {};
+      items.forEach(it => { map[it.id] = null; });
+      // zones
+      fixedList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'subreceita');
+      //variableList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'variavel');
+      //stepList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'passo');
+      // pool => null
+      pool.querySelectorAll('.draggable').forEach(n => { if(map[n.id] === null) map[n.id] = null; });
+      return map;
+    }
+
+    function verify(){
+      const assignments = gatherAssignments();
+      let totalToCheck = 0;
+      let correctCount = 0;
+      feedback.innerHTML = '';
+
+      items.forEach(it => {
+        const assigned = assignments[it.id]; // 'fixa','variavel','passo' or null
+        const node = document.getElementById(it.id);
+        // only evaluate non-irrelevant items (irrelevantes should stay in pool => assigned === null)
+        if(it.correct === 'irrelevante'){
+          totalToCheck++; // we'll check that it stayed in pool (assigned === null)
+          const ok = (assigned === null);
+          //markResult(node, ok);
+          if(ok) correctCount++;
+        } else {
+          // for teachable focus: require that all non-irrelevant items are placed (not null)
+          totalToCheck++;
+          const ok = (assigned === it.correct);
+          //markResult(node, ok);
+          if(ok) correctCount++;
+        }
+      });
+
+      const pct = Math.round((correctCount/totalToCheck) * 100);
+      const msg = `<strong>Resultado:</strong> ${correctCount} de ${totalToCheck} corretos (${pct}%).`;
+      feedback.innerHTML = `<div style="font-weight:700; margin-bottom:6px;">${msg}</div>`;
+      // list quick tips
+      const wrongs = items.filter(it => {
+        const assigned = gatherAssignments()[it.id];
+        if(it.correct === 'irrelevante') return assigned !== null;
+        return assigned !== it.correct;
+      });
+      if(wrongs.length){
+        const ul = document.createElement('ul');
+        wrongs.forEach(w => {
+          const li = document.createElement('li');
+          li.textContent = `${w.text}`;
+          ul.appendChild(li);
+        });
+        const p = document.createElement('div');
+        //p.innerHTML = '<em>Verifique os itens abaixo:</em>';
+        //feedback.appendChild(p);
+        //feedback.appendChild(ul);
+      } else {
+        const p = document.createElement('div');
+        p.style.marginTop = '6px';
+        p.style.color = 'green';
+        p.textContent = 'Tudo correto! Você pode concluir a fase.';
+        feedback.appendChild(p);
+      }
+
+      // Enable conclude if all correct
+      if(wrongs.length === 0){
+        concluirBtn.disabled = false;
+      } else {
+        concluirBtn.disabled = true;
+      }
+
+      // Save latest assignments
+      saveClassificationsToStorage();
+    }
+
+    function markResult(node, ok){
+      if(!node) return;
+      // remove previous markers
+      node.classList.remove('result-correct','result-wrong');
+      if(ok){
+        node.classList.add('result-correct');
+      } else {
+        node.classList.add('result-wrong');
+      }
+    }
+
+    /*******************************
+     * Persistence
+     *******************************/
+    function saveClassificationsToStorage(){
+      const map = gatherAssignments();
+      localStorage.setItem(storageKey, JSON.stringify(map));
+    }
+
+    function loadClassificationsFromStorage(){
+      const raw = localStorage.getItem(storageKey);
+      if(!raw) return false;
+      try {
+        const map = JSON.parse(raw);
+        // First, move everything back to pool
+        pool.querySelectorAll('.draggable').forEach(n => pool.appendChild(n));
+        // Then place according to map
+        Object.entries(map).forEach(([id, assigned]) => {
+          const node = document.getElementById(id);
+          if(!node) return;
+          if(assigned === 'fixa') fixedList.appendChild(node);
+          else if(assigned === 'variavel') variableList.appendChild(node);
+          else if(assigned === 'passo') stepList.appendChild(node);
+          else pool.appendChild(node);
+        });
+        return true;
+      } catch(e){
+        console.error(e);
+        return false;
+      }
+    }
+
+    function resetClassifications(){
+      // move all to pool
+      document.querySelectorAll('.drop-grid .draggable').forEach(n => pool.appendChild(n));
+      // remove markings
+      document.querySelectorAll('.draggable').forEach(n => {
+        n.classList.remove('result-correct','result-wrong');
+      });
+      localStorage.removeItem(storageKey);
+      concluirBtn.disabled = true;
+      feedback.innerHTML = '';
+    }
+
+    /*******************************
+     * Status / concluir / apagar
+     *******************************/
     function foiConcluida() {
       const valor = localStorage.getItem(fase);
       if (valor === null) {
@@ -189,13 +433,17 @@
     }
 
     function concluirFase(){
+      // only allow if concluirBtn is enabled
+      if(concluirBtn.disabled) return;
       localStorage.setItem(fase, 'concluida');
       atualizarStatus();
     }
 
     function apagarAvanco(){
       localStorage.setItem(fase, 'nao concluida');
+      localStorage.removeItem(storageKey);
       atualizarStatus();
+      resetClassifications();
     }
 
     function atualizarStatus(){
@@ -212,13 +460,35 @@
       }
     }
 
-    backBtn.addEventListener('click', voltarPagina);
-    jumpBtn.addEventListener('click', irParaOutraFase);
-    nextBtn.addEventListener('click', irParaProximaFase);
+    /*******************************
+     * Inicializa tudo
+     *******************************/
+    function init(){
+      renderPool();
+      setupDropzones();
+      // Try to load saved classifications
+      const loaded = loadClassificationsFromStorage();
+      if(loaded){
+        // optionally auto-verify to mark
+        // keep conclude disabled until the student verifies
+      }
+      atualizarStatus();
+    }
+
+    /*******************************
+     * Event listeners
+     *******************************/
+    verifyBtn.addEventListener('click', verify);
+    resetClassBtn.addEventListener('click', resetClassifications);
     concluirBtn.addEventListener('click', concluirFase);
     apagarBtn.addEventListener('click', apagarAvanco);
-    
-    atualizarStatus();
+
+    backBtn.addEventListener('click', () => window.location.href = 'fase 1.html');
+    jumpBtn.addEventListener('click', () => window.location.href = 'fase 3.html');
+    nextBtn.addEventListener('click', () => window.location.href = 'fase 3.html');
+
+    // init
+    init();
   </script>
 </body>
 </html>
