@@ -5,51 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subproblemas</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* Blocos arrastáveis */
-    .avaliacao-section {
-      margin-top: 40px;
-      padding: 20px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      background: #fafafa;
-    }
-
-    .drag-container, .drop-zone {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 15px;
-      border: 2px dashed #bbb;
-      border-radius: 6px;
-      min-height: 150px;
-      background: #fff;
-    }
-
-    .drag-item {
-      padding: 10px;
-      background: #e8f0ff;
-      border: 1px solid #8aa7ff;
-      border-radius: 6px;
-      cursor: grab;
-      font-weight: 500;
-    }
-
-    .drag-item:active {
-      cursor: grabbing;
-    }
-
-    .drop-zone.highlight {
-      border-color: #4caf50;
-      background: #f0ffef;
-    }
-
-    .feedback {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
@@ -75,7 +30,7 @@
 
       <article class="text-block">
 
-        <h2>Exemplo: calcular a área de um estábulo.</h2>
+        <h2>Exemplo: calcular a área de um estábulo</h2>
 
         <p>
         Uma fazenda retangular, que mede 50 metros de largura e o dobro de comprimento, é dividida ao meio em diagonal, formando dois triângulos. Em um desses triângulos será construído um estábulo. Qual será a área final dele?
@@ -154,341 +109,251 @@
   </main>
 
   <script>
-    /*******************************
-     * Configurações e dados
-     *******************************/
-    const fase = "fase 2";
-    const storageKey = "classificacoes_fase1";
+  /*******************************
+   * Configurações e dados
+   *******************************/
+  const fase = "fase 2";
+  const storageKey = "classificacoes_fase2";
 
-    // Itens para classificar: id, texto, tipoCorreto ("fixa","variavel","passo") or "irrelevante"
-    const items = [
-      { id: "i1", text: "Separe os ingredientes.", correct: null },
-      { id: "i2", text: "Preaqueça o forno.", correct: null },
-      { id: "i3", text: "Misture manteiga e açúcar.", correct: null },
-      { id: "i4", text: "Adicione os ovos.", correct: null },
-      { id: "i5", text: "Adicione e misture os ingredientes secos.", correct: null },
-      { id: "i6", text: "Adicione e misture o leite.", correct: null },
-      { id: "i7", text: "Asse a massa.", correct:  null },
-      { id: "i8", text: "Misture leite condensado, manteiga e chocolate em pó.", correct: "subreceita" },
-      { id: "i9", text: "Cozinhe até o brigadeiro engrossar.", correct: "subreceita" },
-      { id: "i10", text: "Misture leite condensado, manteiga e coco ralado.", correct: "subreceita" },
-      { id: "i11", text: "Cozinhe até o beijinho desgrudar do fundo da panela.", correct: "subreceita" },
-      { id: "i12", text: "Enrole e passe no coco ralado.", correct: "subreceita" },
-      { id: "i13", text: "Desenforme e corte o bolo.", correct:  null },
-      { id: "i14", text: "Recheie com brigadeiro.", correct:  null },
-      { id: "i15", text: "Decore a superfície com os beijinhos.", correct:  null },
-    ];
+  const items = [
+    { id: "i1", text: "Separe os ingredientes.", correct: null },
+    { id: "i2", text: "Preaqueça o forno.", correct: null },
+    { id: "i3", text: "Misture manteiga e açúcar.", correct: null },
+    { id: "i4", text: "Adicione os ovos.", correct: null },
+    { id: "i5", text: "Adicione e misture os ingredientes secos.", correct: null },
+    { id: "i6", text: "Adicione e misture o leite.", correct: null },
+    { id: "i7", text: "Asse a massa.", correct: null },
+    { id: "i8", text: "Misture leite condensado, manteiga e chocolate em pó.", correct: "subreceita" },
+    { id: "i9", text: "Cozinhe até o brigadeiro engrossar.", correct: "subreceita" },
+    { id: "i10", text: "Misture leite condensado, manteiga e coco ralado.", correct: "subreceita" },
+    { id: "i11", text: "Cozinhe até o beijinho desgrudar do fundo da panela.", correct: "subreceita" },
+    { id: "i12", text: "Enrole e passe no coco ralado.", correct: "subreceita" },
+    { id: "i13", text: "Desenforme e corte o bolo.", correct: null },
+    { id: "i14", text: "Recheie com brigadeiro.", correct: null },
+    { id: "i15", text: "Decore a superfície com os beijinhos.", correct: null },
+  ];
 
+  // DOM
+  const pool = document.getElementById('pool');
+  const fixedList = document.getElementById('fixedList');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const resetClassBtn = document.getElementById('resetClassBtn');
+  const concluirBtn = document.getElementById('concluirBtn');
+  const apagarBtn = document.getElementById('apagarBtn');
+  const statusBadge = document.getElementById('statusBadge');
+  const feedback = document.getElementById('feedback');
+  const backBtn = document.getElementById('backBtn');
+  const jumpBtn = document.getElementById('jumpBtn');
+  const nextBtn = document.getElementById('nextBtn');
 
-    // Elementos DOM
-    const pool = document.getElementById('pool');
-    const fixedList = document.getElementById('fixedList');
-    const variableList = document.getElementById('variableList');
-    const stepList = document.getElementById('stepList');
-    const verifyBtn = document.getElementById('verifyBtn');
-    const resetClassBtn = document.getElementById('resetClassBtn');
-    const concluirBtn = document.getElementById('concluirBtn');
-    const apagarBtn = document.getElementById('apagarBtn');
-    const statusBadge = document.getElementById('statusBadge');
-    const feedback = document.getElementById('feedback');
+  let dragId = null;
 
-    const backBtn = document.getElementById('backBtn');
-    const jumpBtn = document.getElementById('jumpBtn');
-    const nextBtn = document.getElementById('nextBtn');
+  /*******************************
+   * Criar itens arrastáveis
+   *******************************/
+  function createDraggable(item){
+    const div = document.createElement('div');
+    div.className = 'draggable';
+    div.setAttribute('draggable', 'true');
+    div.id = item.id;
+    div.textContent = item.text;
+    div.dataset.correct = item.correct;
 
-    // Drag state
-    let dragId = null;
+    div.addEventListener('dragstart', (e) => {
+      dragId = item.id;
+      e.dataTransfer.setData('text/plain', item.id);
+      e.dataTransfer.effectAllowed = 'move';
+    });
 
-    /*******************************
-     * Inicialização
-     *******************************/
-    function shuffleArray(a){
-      for(let i = a.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
+    div.addEventListener('dragend', () => { dragId = null; });
 
-    function createDraggable(item){
-      const div = document.createElement('div');
-      div.className = 'draggable';
-      div.setAttribute('draggable', 'true');
-      div.id = item.id;
-      div.textContent = item.text;
-      div.dataset.correct = item.correct;
-      div.setAttribute('role','listitem');
-      div.setAttribute('aria-grabbed','false');
+    return div;
+  }
 
-      div.addEventListener('dragstart', (e) => {
-        dragId = item.id;
-        e.dataTransfer.setData('text/plain', item.id);
-        e.dataTransfer.effectAllowed = 'move';
-        div.setAttribute('aria-grabbed','true');
-      });
+  /*******************************
+   * Renderizar pool SEM embaralhar
+   *******************************/
+  function renderPool(){
+    pool.innerHTML = "";
+    items.forEach(it => {
+      const el = createDraggable(it);
+      pool.appendChild(el);
+    });
+  }
 
-      div.addEventListener('dragend', () => {
-        dragId = null;
-        div.setAttribute('aria-grabbed','false');
-      });
+  /*******************************
+   * Função essencial: manter ordem fixada
+   *******************************/
+  function restorePoolOrder(){
+    const current = Array.from(pool.children);
+    const ordered = items
+      .map(it => current.find(n => n.id === it.id))
+      .filter(Boolean);
 
-      return div;
-    }
+    pool.innerHTML = "";
+    ordered.forEach(n => pool.appendChild(n));
+  }
 
-    // Render pool (shuffle)
-    function renderPool(){
-      pool.querySelectorAll('.draggable').forEach(n => n.remove());
-      const shuffled = shuffleArray(items.slice());
-      shuffled.forEach(it => {
-        const node = createDraggable(it);
-        pool.appendChild(node);
-      });
-    }
+  /*******************************
+   * Dropzones
+   *******************************/
+  function allowDrop(e){ e.preventDefault(); }
 
-    // Dropzone handlers
-    function allowDrop(e){ e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
-    function onZoneDragEnter(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
-    function onZoneDragLeave(e){ e.currentTarget.classList.remove('over'); }
+  function onDrop(e){
+    e.preventDefault();
+    const id = e.dataTransfer.getData('text/plain');
+    const node = document.getElementById(id);
+    if(!node) return;
 
-    function onDrop(e){
+    const zone = e.currentTarget;
+    const inner = zone.querySelector('.drop-grid');
+    inner.appendChild(node);
+
+    saveClassificationsToStorage();
+  }
+
+  function setupDropzones(){
+    const zones = document.querySelectorAll('.dropzone');
+    zones.forEach(z => {
+      z.addEventListener('dragover', allowDrop);
+      z.addEventListener('drop', onDrop);
+    });
+
+    // Pool também aceita devolução
+    pool.addEventListener('dragover', allowDrop);
+    pool.addEventListener('drop', (e) => {
       e.preventDefault();
       const id = e.dataTransfer.getData('text/plain');
       const node = document.getElementById(id);
-      if(!node) return;
-      const zone = e.currentTarget;
-      zone.classList.remove('over');
-
-      // Append node to zone container element (the inner list)
-      const inner = zone.querySelector('.drop-grid');
-      inner.appendChild(node);
-
-      saveClassificationsToStorage(); // persist
-    }
-
-    // Setup dropzones
-    function setupDropzones(){
-      const zones = document.querySelectorAll('.dropzone');
-      zones.forEach(z => {
-        z.addEventListener('dragover', allowDrop);
-        z.addEventListener('dragenter', onZoneDragEnter);
-        z.addEventListener('dragleave', onZoneDragLeave);
-        z.addEventListener('drop', onDrop);
-      });
-      // Make pool accept drops (to return an item)
-      pool.addEventListener('dragover', allowDrop);
-      pool.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const id = e.dataTransfer.getData('text/plain');
-        const node = document.getElementById(id);
-        if(node){
-          pool.appendChild(node);
-          saveClassificationsToStorage();
-        }
-      });
-    }
-
-    /*******************************
-     * Check / verify logic
-     *******************************/
-    function gatherAssignments(){
-      // return map id => assignedKind ('fixa','variavel','passo' or null if in pool)
-      const map = {};
-      items.forEach(it => { map[it.id] = null; });
-      // zones
-      fixedList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'subreceita');
-      //variableList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'variavel');
-      //stepList.querySelectorAll('.draggable').forEach(n => map[n.id] = 'passo');
-      // pool => null
-      pool.querySelectorAll('.draggable').forEach(n => { if(map[n.id] === null) map[n.id] = null; });
-      return map;
-    }
-
-    function verify(){
-      const assignments = gatherAssignments();
-      let totalToCheck = 0;
-      let correctCount = 0;
-      feedback.innerHTML = '';
-
-      items.forEach(it => {
-        const assigned = assignments[it.id]; // 'fixa','variavel','passo' or null
-        const node = document.getElementById(it.id);
-        // only evaluate non-irrelevant items (irrelevantes should stay in pool => assigned === null)
-        if(it.correct === 'irrelevante'){
-          totalToCheck++; // we'll check that it stayed in pool (assigned === null)
-          const ok = (assigned === null);
-          //markResult(node, ok);
-          if(ok) correctCount++;
-        } else {
-          // for teachable focus: require that all non-irrelevant items are placed (not null)
-          totalToCheck++;
-          const ok = (assigned === it.correct);
-          //markResult(node, ok);
-          if(ok) correctCount++;
-        }
-      });
-
-      const pct = Math.round((correctCount/totalToCheck) * 100);
-      const msg = `<strong>Resultado:</strong> ${correctCount} de ${totalToCheck} corretos (${pct}%).`;
-      feedback.innerHTML = `<div style="font-weight:700; margin-bottom:6px;">${msg}</div>`;
-      // list quick tips
-      const wrongs = items.filter(it => {
-        const assigned = gatherAssignments()[it.id];
-        if(it.correct === 'irrelevante') return assigned !== null;
-        return assigned !== it.correct;
-      });
-      if(wrongs.length){
-        const ul = document.createElement('ul');
-        wrongs.forEach(w => {
-          const li = document.createElement('li');
-          li.textContent = `${w.text}`;
-          ul.appendChild(li);
-        });
-        const p = document.createElement('div');
-        //p.innerHTML = '<em>Verifique os itens abaixo:</em>';
-        //feedback.appendChild(p);
-        //feedback.appendChild(ul);
-      } else {
-        const p = document.createElement('div');
-        p.style.marginTop = '6px';
-        p.style.color = 'green';
-        p.textContent = 'Tudo correto! Você pode concluir a fase.';
-        feedback.appendChild(p);
+      if(node){
+        pool.appendChild(node);
+        restorePoolOrder();  // ← GARANTE ORDEM FIXA
+        saveClassificationsToStorage();
       }
+    });
+  }
 
-      // Enable conclude if all correct
-      if(wrongs.length === 0){
-        concluirBtn.disabled = false;
-      } else {
-        concluirBtn.disabled = true;
-      }
+  /*******************************
+   * Verificação
+   *******************************/
+  function gatherAssignments(){
+    const res = {};
+    items.forEach(it => res[it.id] = null);
+    fixedList.querySelectorAll('.draggable').forEach(n => res[n.id] = 'subreceita');
+    pool.querySelectorAll('.draggable').forEach(n => res[n.id] = null);
+    return res;
+  }
 
-      // Save latest assignments
-      saveClassificationsToStorage();
-    }
+  function verify(){
+    const a = gatherAssignments();
+    let total = 0;
+    let ok = 0;
+    items.forEach(it => {
+      total++;
+      if(a[it.id] === it.correct) ok++;
+    });
 
-    function markResult(node, ok){
-      if(!node) return;
-      // remove previous markers
-      node.classList.remove('result-correct','result-wrong');
-      if(ok){
-        node.classList.add('result-correct');
-      } else {
-        node.classList.add('result-wrong');
-      }
-    }
+    feedback.textContent = `${ok} de ${total} corretos`;
 
-    /*******************************
-     * Persistence
-     *******************************/
-    function saveClassificationsToStorage(){
-      const map = gatherAssignments();
-      localStorage.setItem(storageKey, JSON.stringify(map));
-    }
+    concluirBtn.disabled = ok !== total;
+    saveClassificationsToStorage();
+  }
 
-    function loadClassificationsFromStorage(){
-      const raw = localStorage.getItem(storageKey);
-      if(!raw) return false;
-      try {
-        const map = JSON.parse(raw);
-        // First, move everything back to pool
-        pool.querySelectorAll('.draggable').forEach(n => pool.appendChild(n));
-        // Then place according to map
-        Object.entries(map).forEach(([id, assigned]) => {
-          const node = document.getElementById(id);
-          if(!node) return;
-          if(assigned === 'fixa') fixedList.appendChild(node);
-          else if(assigned === 'variavel') variableList.appendChild(node);
-          else if(assigned === 'passo') stepList.appendChild(node);
-          else pool.appendChild(node);
-        });
-        return true;
-      } catch(e){
-        console.error(e);
-        return false;
-      }
-    }
+  /*******************************
+   * Persistência
+   *******************************/
+  function saveClassificationsToStorage(){
+    localStorage.setItem(storageKey, JSON.stringify(gatherAssignments()));
+  }
 
-    function resetClassifications(){
-      // move all to pool
-      document.querySelectorAll('.drop-grid .draggable').forEach(n => pool.appendChild(n));
-      // remove markings
-      document.querySelectorAll('.draggable').forEach(n => {
-        n.classList.remove('result-correct','result-wrong');
-      });
-      localStorage.removeItem(storageKey);
-      concluirBtn.disabled = true;
-      feedback.innerHTML = '';
-    }
+  function loadClassificationsFromStorage(){
+    const raw = localStorage.getItem(storageKey);
+    if(!raw) return false;
 
-    /*******************************
-     * Status / concluir / apagar
-     *******************************/
-    function foiConcluida() {
-      const valor = localStorage.getItem(fase);
-      if (valor === null) {
-        localStorage.setItem(fase, 'nao concluida');
-        return false;
-      }
-      return valor === 'concluida';
-    }
+    const map = JSON.parse(raw);
 
-    function concluirFase(){
-      // only allow if concluirBtn is enabled
-      if(concluirBtn.disabled) return;
-      localStorage.setItem(fase, 'concluida');
-      atualizarStatus();
-    }
+    // limpa todas as listas
+    [...document.querySelectorAll('.draggable')].forEach(n => pool.appendChild(n));
 
-    function apagarAvanco(){
+    // recoloca de acordo com o que estava salvo
+    Object.entries(map).forEach(([id, dest]) => {
+      const node = document.getElementById(id);
+      if(dest === "subreceita") fixedList.appendChild(node);
+    });
+
+    restorePoolOrder();   // ← GARANTE ORDEM FIXA AO RECARREGAR
+    return true;
+  }
+
+  /*******************************
+   * Reset
+   *******************************/
+  function resetClassifications(){
+    [...document.querySelectorAll('.drop-grid .draggable')].forEach(n => pool.appendChild(n));
+    restorePoolOrder();  // ← MANTÉM ORDEM AO RESETAR
+    localStorage.removeItem(storageKey);
+    feedback.textContent = "";
+    concluirBtn.disabled = true;
+  }
+
+  /*******************************
+   * Status
+   *******************************/
+  function foiConcluida(){
+    const v = localStorage.getItem(fase);
+    if(v === null){
       localStorage.setItem(fase, 'nao concluida');
-      localStorage.removeItem(storageKey);
-      atualizarStatus();
-      resetClassifications();
+      return false;
     }
+    return v === "concluida";
+  }
 
-    function atualizarStatus(){
-      if(foiConcluida()){
-        statusBadge.textContent = 'Concluído';
-        statusBadge.className = 'status-badge status-concluido';
-        nextBtn.disabled = false;
-        jumpBtn.disabled = false;
-      } else {
-        statusBadge.textContent = 'Pendente';
-        statusBadge.className = 'status-badge status-pendente';
-        nextBtn.disabled = true;
-        jumpBtn.disabled = true;
-      }
+  function concluirFase(){
+    if(concluirBtn.disabled) return;
+    localStorage.setItem(fase, "concluida");
+    atualizarStatus();
+  }
+
+  function apagarAvanco(){
+    localStorage.setItem(fase, "nao concluida");
+    localStorage.removeItem(storageKey);
+    atualizarStatus();
+    resetClassifications();
+  }
+
+  function atualizarStatus(){
+    if(foiConcluida()){
+      statusBadge.textContent = "Concluído";
+      nextBtn.disabled = false;
+    } else {
+      statusBadge.textContent = "Pendente";
+      nextBtn.disabled = true;
     }
+  }
 
-    /*******************************
-     * Inicializa tudo
-     *******************************/
-    function init(){
-      renderPool();
-      setupDropzones();
-      // Try to load saved classifications
-      const loaded = loadClassificationsFromStorage();
-      if(loaded){
-        // optionally auto-verify to mark
-        // keep conclude disabled until the student verifies
-      }
-      atualizarStatus();
-    }
+  /*******************************
+   * Init
+   *******************************/
+  function init(){
+    renderPool();
+    setupDropzones();
+    loadClassificationsFromStorage();
+    atualizarStatus();
+  }
 
-    /*******************************
-     * Event listeners
-     *******************************/
-    verifyBtn.addEventListener('click', verify);
-    resetClassBtn.addEventListener('click', resetClassifications);
-    concluirBtn.addEventListener('click', concluirFase);
-    apagarBtn.addEventListener('click', apagarAvanco);
+  init();
 
-    backBtn.addEventListener('click', () => window.location.href = 'fase 1.html');
-    jumpBtn.addEventListener('click', () => window.location.href = 'fase 3.html');
-    nextBtn.addEventListener('click', () => window.location.href = 'fase 3.html');
+  /*******************************
+   * Eventos
+   *******************************/
+  verifyBtn.addEventListener('click', verify);
+  resetClassBtn.addEventListener('click', resetClassifications);
+  concluirBtn.addEventListener('click', concluirFase);
+  apagarBtn.addEventListener('click', apagarAvanco);
+  backBtn.addEventListener('click', () => window.location.href = "fase 1.html");
+  jumpBtn.addEventListener('click', () => window.location.href = "fase 3.html");
+  nextBtn.addEventListener('click', () => window.location.href = "fase 3.html");
+</script>
 
-    // init
-    init();
-  </script>
 </body>
 </html>

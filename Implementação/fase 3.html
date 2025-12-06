@@ -4,153 +4,97 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Reuso</title>
-  <style>
-    :root{
-      --bg: #dff3ff;
-      --card: #ffffff;
-      --radius: 16px;
-      --gap: 20px;
-      --maxw: 900px;
-      --text-color: #0b3040;
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, var(--bg), #e6f9ff 60%);
-      color: var(--text-color);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    .page{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:48px 16px;
-    }
-
-    .card{
-      width:100%;
-      max-width:var(--maxw);
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:var(--gap);
-    }
-
-    .title-box{
-      background:var(--card);
-      padding:22px 24px;
-      border-radius: calc(var(--radius) + 4px);
-      box-shadow: 0 6px 18px rgba(11,48,64,0.06);
-      font-size:clamp(20px, 3.6vw, 28px);
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .text-block{
-      background:var(--card);
-      padding:18px 20px;
-      border-radius:var(--radius);
-      box-shadow: 0 6px 14px rgba(11,48,64,0.04);
-      line-height:1.5;
-      font-size:16px;
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:6px;
-    }
-
-    .btn{
-      background: var(--card);
-      border:0;
-      padding:12px 18px;
-      border-radius:999px;
-      box-shadow: 0 6px 12px rgba(11,48,64,0.06);
-      cursor:pointer;
-      font-weight:600;
-      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
-    }
-
-    .btn:disabled{
-      background:#e5e5e5;
-      cursor:not-allowed;
-      opacity:0.8;
-    }
-
-    .btn:active{transform:translateY(1px)}
-    .btn:focus{outline:3px solid rgba(11,48,64,0.08)}
-
-    .btn.secondary{
-      padding:10px 16px;
-    }
-
-    .btn-danger{
-      background:#ffdddd;
-      color:#7a0000;
-      font-weight:700;
-    }
-
-    @media (min-width:700px){
-      .card{
-        grid-template-columns: 1fr;
-      }
-      .controls{
-        display:flex;
-      }
-    }
-    
-    .status-badge{
-      float:right;
-      padding:4px 10px;
-      border-radius:12px;
-      font-size:14px;
-      font-weight:600;
-      color:white;
-    }
-
-    .status-pendente{
-      background:#7e7e7e;
-    }
-
-    .status-concluido{
-      background:#2e9d3d;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="page">
+
     <section role="main" aria-labelledby="page-title" style="width: 80%;">
       <h1 id="page-title" class="title-box">3. Reuso
         <span id="statusBadge" class="status-badge">Pendente</span>
       </h1>
 
-      <article class="text-block">Este bloco contém uma explicação inicial do problema. Coloque aqui o enunciado, objetivos e quaisquer observações gerais que ajudem o aluno a entender o que é pedido.</article>
+      <article class="text-block"> <h2> Vários <b style="color: blue;">algoritmos</b> podem compartilhar partes iguais, assim como problemas podem compartilhar subproblemas. Além disso, um mesmo <b style="color: blue;">algoritmo</b> pode repetir o uso da solução de um subproblema. Identificar essas dependências do mesmo subconjunto de passos pode reduzir o tempo e esforço para se desenvolver soluções. </h2> </article>
 
-      <article class="text-block">Este segundo bloco pode apresentar restrições, exemplos ou dicas sobre como decompor o problema em partes menores.</article>
+      <article class="text-block"> <b> Alguns problemas podem compartilhar subprblemas. Alguns subproblemas podem aparecer mais de uma vez no mesmo problema. Podemos economizar tempo escrevendo apenas uma vez um subproblema e o reaproveitando. </b> <p> Alguns problemas são parecidos entre si e acabam tendo partes iguais, chamadas de subproblemas. Às vezes, até dentro do mesmo problema, essas partes repetidas aparecem mais de uma vez. Em vez de resolver tudo de novo cada vez que isso acontece, podemos resolver o subproblema uma única vez e reaproveitar essa solução. Assim, economizamos tempo, pensamos com mais organização e resolvemos tarefas de um jeito mais inteligente. </p> </article>
+
+      <article class="text-block"> 
+        <h2>
+          Exemplo 1: Dois problemas dependem do mesmo subproblema
+        </h2> 
+        <h3>
+          Problema 1: Preparando suco para a turma
+        </h3> 
+        <p> 
+          A professora quer fazer suco para os alunos. Ela tem 3 garrafas de 2 litros e quer saber quantos copos de 250 mL ela pode servir. 
+        </p> 
+        <h4>
+          Sequência de passos:
+        </h4> 
+        <ol> 
+          <li>
+            Calcular o total de litros de suco (multiplicar a quantidade de garrafas pelo volume de cada uma).
+          </li> 
+          <li style="color: green">
+            Converter para mililitros (multiplicar por 1000).
+          </li> 
+          <li>
+            Dividir o total em mililitros pelo valor de 250 mL para saber quantos copos podem ser servidos.
+          </li> 
+        </ol> 
+        <h3>
+          Problema 2: Pintando uma parede
+        </h3> 
+        <p> 
+          Um pintor irá pintar uma parede. Ele tem uma lata de tinta aberta de onde conseguiu tirar 250ml de tinta. A parede tem 10 m². É necessário 1L de tinta para pintar 15 m². Quanta tinta faltará? 
+        </p> 
+        <h4>
+          Sequência de passos:
+        </h4> 
+        <ol> 
+          <li>
+            Calcular quanta tinta é necessária para pintar 10 m² (dividir 10 por 15 para obter o valor em litros).
+          </li> 
+          <li style="color: green">
+            Converter para mililitros (multiplicar por 1000).
+          </li> 
+          <li>
+            Calcular quanta tinta ainda falta (subtrair os 250 mL disponíveis do total necessário em mililitros).
+          </li> 
+        </ol> 
+        <h3>
+          Subproblema: Converter litros para mililitros
+        </h3> 
+        <p> 
+          Nos dois problemas é necessário converter litros para mililitros (multiplicar por 1000). Os passos desse subproblema estão destacados em verde. 
+        </p> 
+      </article>
 
       <article class="text-block">
-        O terceiro bloco pode trazer critérios de avaliação, entrada/saída esperadas ou perguntas de verificação para guiar a solução.
-        <br><br>
+        <div class="testeBlocosLista lista" id="listaA">
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="1" data-listaDestino="listaA">Item A1</div>
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="2" data-listaDestino="listaA">Item A2</div>
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="3" data-listaDestino="listaA">Item A3</div>
+        </div>
+
+        <div class="testeBlocosLista lista" id="listaB">
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="1" data-listaDestino="listaB">Item B1</div>
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="2" data-listaDestino="listaB">Item B2</div>
+          <div class="testeBlocosItem item" draggable="true" data-ordemDestino="3" data-listaDestino="listaB">Item B3</div>
+        </div>
+      </article>
+
+      <div style="display:flex; gap:8px;">
         <button id="concluirBtn" class="btn" type="button">Concluir fase</button>
         <button id="apagarBtn" class="btn btn-danger" type="button">Apagar avanço</button>
-      </article>
+      </div>
 
       <div class="controls" aria-hidden="false">
         <button class="btn left" id="backBtn" type="button">Voltar</button>
-        
+
         <div style="display:flex; gap:12px;">
           <button class="btn left" id="jumpBtn" type="button" style="display:none;">Ir para Sequência Correta</button>
-          <button class="btn right" id="nextBtn" type="button" style="display:none;">Ir para Subproblemas</button>
+          <button class="btn right" id="nextBtn" type="button" style="display:none;">Ir para Reuso</button>
         </div>
       </div>
     </section>
@@ -158,67 +102,13 @@
 
   <script>
     const fase = "fase 3";
-
-    const backBtn = document.getElementById('backBtn');
-    const jumpBtn = document.getElementById('jumpBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const concluirBtn = document.getElementById('concluirBtn');
-    const apagarBtn = document.getElementById('apagarBtn');
-
-    const statusBadge = document.getElementById('statusBadge');
-
-    function voltarPagina() {
-      window.location.href = 'fase 2.html';
-    }
-
-    function irParaProximaFase() {
-      window.location.href = 'fase 2.html';
-    }
-
-    function irParaOutraFase(){
-      window.location.href = 'fase 4.html';
-    }
-
-    function foiConcluida() {
-      const valor = localStorage.getItem(fase);
-      if (valor === null) {
-        localStorage.setItem(fase, 'nao concluida');
-        return false;
-      }
-      return valor === 'concluida';
-    }
-
-    function concluirFase(){
-      localStorage.setItem(fase, 'concluida');
-      atualizarStatus();
-    }
-
-    function apagarAvanco(){
-      localStorage.setItem(fase, 'nao concluida');
-      atualizarStatus();
-    }
-
-    function atualizarStatus(){
-      if(foiConcluida()){
-        statusBadge.textContent = 'Concluído';
-        statusBadge.className = 'status-badge status-concluido';
-        nextBtn.disabled = false;
-        jumpBtn.disabled = false;
-      } else {
-        statusBadge.textContent = 'Pendente';
-        statusBadge.className = 'status-badge status-pendente';
-        nextBtn.disabled = true;
-        jumpBtn.disabled = true;
-      }
-    }
-
-    backBtn.addEventListener('click', voltarPagina);
-    jumpBtn.addEventListener('click', irParaOutraFase);
-    nextBtn.addEventListener('click', irParaProximaFase);
-    concluirBtn.addEventListener('click', concluirFase);
-    apagarBtn.addEventListener('click', apagarAvanco);
-    
-    atualizarStatus();
+    const backPage = "fase 2.html";
+    const nextPage = "fase 3.html";
+    const jumpPage = "fase 3.html";
   </script>
+
+  <script src="avancoScript.js"></script>
+  <script src="Testes/testeBlocosScript.js"></script>
+
 </body>
 </html>
