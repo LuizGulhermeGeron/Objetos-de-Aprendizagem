@@ -5,6 +5,13 @@ Estudantes do Ensino Fundamental 1 (1º ao 4º ano)
 
 ---
 
+## Onde acessar ou como baixar e usar
+
+Uma versão funcional pode ser encontrada pelo link: https://luizgulhermegeron.github.io/Objetos-de-Aprendizagem/.
+É possível baixar os arquivos desse repositório e utilizar o objeto educacional abrindo o arquivo index.html por um navegador web.
+
+---
+
 ## Requisitos de Aprendizagem (BNCC)
 
 - **EF01CO03**
