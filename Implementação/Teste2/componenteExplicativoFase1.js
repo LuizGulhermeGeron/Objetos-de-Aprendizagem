@@ -1,12 +1,12 @@
 const template = document.createElement("template");
 template.innerHTML = `
   <h1 id="page-title" class="title-box">1. Interpretação do Problema
-    <span id="statusBadge" class="status-badge">Pendente</span>
+    <componente-indicativo></componente-indicativo>
   </h1>
 
   <article class="text-block">
     <h2>
-      Um <b style="color: blue;">algoritmo</b> é uma sequência de passos com início e fim que tem um objetivo claro, resolve um problema. Para criar algoritmos, é preciso compreender o problema, as informações que são dadas e as etapas para solucioná-lo.
+      Um <b style="color: blue;">algoritmo</b> é uma sequência de passos (cada passo é uma ação, instrução ou comando) com início e fim que tem um objetivo claro, resolve um problema. Para criar algoritmos, é preciso compreender o problema, as informações que são dadas e as etapas para solucioná-lo.
     </h2>
   </article>
 

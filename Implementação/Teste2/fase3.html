@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decisão</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="componenteIndicativo.js"></script>
+  <script src="componenteExplicativoFase3.js"></script>
+  <script src="componenteAvaliativoFase3.js"></script>
+  
+</head>
+<body>
+  <main class="page">
+    <section role="main" aria-labelledby="page-title" style="width: 80%;">
+
+      <componente-explicativo></componente-explicativo>
+      <componente-avaliativo></componente-avaliativo>
+
+      <div class="controls" aria-hidden="false">
+        <button class="btn left" type="button" id="btConcluir" onclick="concluirFase()" disabled>Concluir fase</button>
+        <button class="btn left" type="button" onclick="apagarAvanco()" >Apagar avanço</button>
+      </div>
+
+      <div class="controls" aria-hidden="false">
+        <button class="btn left" type="button" onclick="window.location.href='fase2.html'">
+          Voltar
+        </button>
+        
+        <div style="display:flex; gap:12px;">
+          <button class="btn left" type="button" id="btNext" onclick="window.location.href='fase4.html'">
+            Próxima fase
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+<script src="logicaAvaliativaFase3.js"></script>
+<script src="logicaIndicativa.js"></script>
+<script>
+  const btConcluir = document.getElementById("btConcluir");
+  const btNext = document.getElementById("btNext");
+
+  const storageKey = "classificacoes_fase3";
+  funAprov = () => {btConcluir.disabled = false;};
+  funReset = () => {btConcluir.disabled = true;};
+  initAvaliacao();
+
+  const fase = "fase3";
+  funConcl = () => {btNext.disabled = false;};
+  funApaga = () => {btNext.disabled = true;};
+  foiConcluida();
+</script>
+</html>
