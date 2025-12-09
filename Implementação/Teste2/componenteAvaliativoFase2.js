@@ -5,7 +5,7 @@ templateAvaliativo.innerHTML = `
     Atividade: ordene os passos para o cálculo de ração
   </h2>
   <p>
-    Rosa tem uma fazenda com 5 animais. Cada animal come 3 kg de ração por dia. Rosa tem um saco com 30 kg de ração. Ela quer saber quanta ração precisará comprar para poder alimentar seus animais por 7 dias. Rosa já sabe os passos para resolver esse problema, mas se esqueceu da ordem correta em que devem ser feitos. Ordene os passos.
+    Rosa tem uma fazenda com 5 animais. Cada animal come 2 kg de ração por dia. Rosa tem um saco com 30 kg de ração. Ela quer saber quanta ração precisará comprar para poder alimentar seus animais por 7 dias. Rosa já sabe os passos para resolver esse problema, mas se esqueceu da ordem correta em que devem ser feitos. Ordene os passos.
   </p>
   <h3>
     Sequência de passos da solução:

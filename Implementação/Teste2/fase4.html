@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="componenteIndicativo.js"></script>
   <script src="componenteExplicativoFase4.js"></script>
-  <script src="componenteAvaliativoFase3.js"></script>
+  <script src="componenteAvaliativoFase4.js"></script>
   
 </head>
 <body>
@@ -36,18 +36,18 @@
     </section>
   </main>
 </body>
-<script src="logicaAvaliativaFase3.js"></script>
+<script src="logicaAvaliativaFase4.js"></script>
 <script src="logicaIndicativa.js"></script>
 <script>
   const btConcluir = document.getElementById("btConcluir");
   const btNext = document.getElementById("btNext");
 
-  const storageKey = "classificacoes_fase3";
+  const storageKey = "classificacoes_fase4";
   funAprov = () => {btConcluir.disabled = false;};
   funReset = () => {btConcluir.disabled = true;};
   initAvaliacao();
 
-  const fase = "fase3";
+  const fase = "fase4";
   funConcl = () => {btNext.disabled = false;};
   funApaga = () => {btNext.disabled = true;};
   foiConcluida();

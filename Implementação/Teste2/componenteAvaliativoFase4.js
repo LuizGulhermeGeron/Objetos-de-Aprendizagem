@@ -11,42 +11,33 @@ templateAvaliativo.innerHTML = `
     Sequência de passos da solução:
   </h3>
   <div class="testeBlocosLista lista dropzone drop-orange" id="listaA">
-    <div class="item draggable" draggable="true" data-ordemDestino="7" data-listaDestino="listaA" instrucao = "recebe 14">
-      Receber o dividor (14)
+    <div class="item draggable" draggable="true" data-ordemDestino="1" data-listaDestino="listaA" instrucao = "recebe #divisor">
+      Receber o divisor
     </div>
-    <div class="item draggable" draggable="true" data-ordemDestino="7" data-listaDestino="listaA" instrucao = "recebe 120">
-      Receber o dividendo (120)
-    </div>
-
-
-    <div class="item draggable" draggable="true" data-ordemDestino="8" data-listaDestino="listaA" instrucao = "subtrai 12">
-      Subtrair o valor do sorvete (12)
-    </div>
-    <div class="item draggable" draggable="true" data-ordemDestino="10" data-listaDestino="listaA" instrucao = "subtrai 30">
-      Subtrair o valor emprestado para a irmã (30)
-    </div>
-    <div class="item draggable" draggable="true" data-ordemDestino="9" data-listaDestino="listaA" instrucao = "subtrai 18">
-      Subtrair o valor devido para o amigo (18)
-    </div>
-    <div class="item draggable" draggable="true" data-ordemDestino="6" data-listaDestino="listaA" instrucao = "seMaior 0">
-      Se o valor é igual ou maior do que 0:
+    <div class="item draggable" draggable="true" data-ordemDestino="2" data-listaDestino="listaA" instrucao = "seIgual 0">
+      Se o valor é igual a 0:
       <div class="testeBlocosLista lista dropzone drop-orange" id="listaB">
-        <div class="item draggable" draggable="true" data-ordemDestino="3" data-listaDestino="listaA" instrucao = "soma _sobraram">
-          Somar "sobraram"
+        <div class="item draggable" draggable="true" data-ordemDestino="3" data-listaDestino="listaA" instrucao = "recebe Divisão_por_0,_erro!">
+          Receber "Divisão por 0, erro!"
         </div>
-        <div class="item draggable" draggable="true" data-ordemDestino="5" data-listaDestino="listaA" instrucao = "responder">
+        <div class="item draggable" draggable="true" data-ordemDestino="4" data-listaDestino="listaA" instrucao = "responder">
           Responder valor final
         </div>
       </div>
       Se não:
       <div class="testeBlocosLista lista dropzone drop-orange" id="listaC">
-        <div class="item draggable" draggable="true" data-ordemDestino="4" data-listaDestino="listaA" instrucao = "multiplica -1">
-          Multiplica por -1
+        <div class="item draggable" draggable="true" data-ordemDestino="5" data-listaDestino="listaA" instrucao = "recebe #dividendo">
+          Receber o dividendo
         </div>
-        <div class="item draggable" draggable="true" data-ordemDestino="3" data-listaDestino="listaA" instrucao = "soma _faltaram">
-          Somar "faltaram"
+        <div class="item draggable" draggable="true" data-ordemDestino="6" data-listaDestino="listaA" instrucao = "enquantoMaior #divisor">
+          Enquanto o valor for maior que o divisor:
+          <div class="testeBlocosLista lista dropzone drop-orange" id="listaD">
+            <div class="item draggable" draggable="true" data-ordemDestino="7" data-listaDestino="listaA" instrucao = "subtrai #divisor">
+              Subtrair divisor
+            </div>
+          </div>
         </div>
-        <div class="item draggable" draggable="true" data-ordemDestino="1" data-listaDestino="listaA" instrucao = "responder">
+        <div class="item draggable" draggable="true" data-ordemDestino="8" data-listaDestino="listaA" instrucao = "responder">
           Responder valor final
         </div>
       </div>

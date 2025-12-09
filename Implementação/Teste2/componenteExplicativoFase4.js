@@ -28,7 +28,7 @@ template.innerHTML = `
       O expoente de um número (chamado de base) indica quantas vezes esse número deve ser multiplicado por ele mesmo. Por exemplo, 3² significa 3 × 3. Todo número elevado a 0 resulta em 1, e todo número elevado a 1 é o próprio número. Assim, podemos criar um algoritmo para calcular potências repetindo a multiplicação a quantidade de vezes indicada pelo expoente.
     </p>
 
-    <h3 style="color: green;">Sequência de passos do algoritmo da professora:</h3>
+    <h3 style="color: green;">Sequência de passos do algoritmo:</h3>
     <ol>
       <li class="draggable result-correct">
         Receber 1 => = 1

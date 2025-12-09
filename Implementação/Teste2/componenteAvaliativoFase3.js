@@ -5,13 +5,13 @@ templateAvaliativo.innerHTML = `
     Atividade: ordene os passos para o cálculo do saldo de Roberto
   </h2>
   <p>
-    Roberto acabou de receber sua mesada, R$ XX,XX. Ele comprou um sorvete de R$ 12,00 e emprestou R$ 30,00 para a irmã. Estava devendo R$ 18,00 para um amigo. Roberto conseguirá pagar o amigo? Se não, quanto faltará? Se sim, quanto lhe sobrará? 
+    Roberto acabou de receber sua mesada, R$ XX,XX. Ele comprou um sorvete de R$ 12,00 e emprestou R$ 30,00 para a irmã. Estava devendo R$ 18,00 para um amigo. Roberto conseguiu pagar o amigo? Se não, quanto faltou (responda "X faltaram")? Se sim, quanto lhe sobrou (responda "X sobraram")? 
   </p>
   <h3>
     Sequência de passos da solução:
   </h3>
   <div class="testeBlocosLista lista dropzone drop-orange" id="listaA">
-    <div class="item draggable" draggable="true" data-ordemDestino="7" data-listaDestino="listaA" instrucao = "recebe">
+    <div class="item draggable" draggable="true" data-ordemDestino="7" data-listaDestino="listaA" instrucao = "recebe mesada">
       Receber o valor da mesada
     </div>
     <div class="item draggable" draggable="true" data-ordemDestino="8" data-listaDestino="listaA" instrucao = "subtrai 12">

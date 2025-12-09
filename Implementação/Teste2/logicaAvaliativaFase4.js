@@ -172,8 +172,8 @@ function avaliar(){
     markResult(item,null)
   });
 
-  const resultado1 = processar({"mesada":50},"10 faltaram");
-  const resultado2 = processar({"mesada":75},"15 sobraram");
+  const resultado1 = processar({"divisor":15,"dividendo":32},2);
+  const resultado2 = processar({"divisor":0,"dividendo":3},"Divisão por 0, erro!");
 
   if(resultado1 & resultado2){
     funAprov();
@@ -184,9 +184,9 @@ function avaliar(){
 }
 
 function formatarObjeto(obj) {
-  const chave = Object.keys(obj)[0];
-  const valor = obj[chave];
-  return `${chave}: ${valor};`;
+  return Object.entries(obj)
+    .map(([chave, valor]) => `${chave}: ${valor};`)
+    .join(" ");
 }
 
 
@@ -199,9 +199,10 @@ function processar(entradas, saida){
   var valorTrabalho = 0;
   var valorFinal;
 
-  for (let i = 0; i < itens.length; i++) {
-    const item = itens[i];
-    if(item){
+  let i = 0;
+  var item = itens[i];
+  while(item != null){
+    if(item != 1){
       const instrucao = item.getAttribute("instrucao"); 
       const text = item.textContent; 
       var msg = text.split(":")[0] + " => ";
@@ -212,7 +213,12 @@ function processar(entradas, saida){
       var numero = numeroB;
 
       if(numero){
-        numero = numero.replace("_", " ");
+        const variavel = numero.split("#")[1];
+        if(variavel){
+          numero = entradas[variavel]
+        }else{
+          numero = numero.replaceAll("_", " ");
+        }
       }
 
       if(acao === "multiplica"){
@@ -224,12 +230,62 @@ function processar(entradas, saida){
         valorTrabalho = valorTrabalho - numero;
         msg += valorTrabalho;
       }else if(acao === "recebe"){
-        msg += " = " + entradas[numero];
-        valorTrabalho = entradas[numero];
+        msg += " = " + numero;
+        valorTrabalho = numero;
       }else if(acao === "soma"){
         msg += valorTrabalho + " + " + numero + " = ";
         valorTrabalho = valorTrabalho + numero;
         msg += valorTrabalho;
+      }else if(acao === "enquantoMaior"){
+        msg += valorTrabalho + " é igual ou maior a " + numero + " ? ";
+
+        var condicao = valorTrabalho >= numero;
+
+        var listas2 = item.querySelectorAll('.lista');
+        var novosElementos = Array.from(listas2[0].querySelectorAll('.item')).reverse();
+        var quantidade = novosElementos.length;
+
+        
+
+        if(condicao){
+          for (let i2 = 0; i2 < quantidade; i2++) {
+            itens.splice(i + quantidade + 1, 0 ,novosElementos[i2]);
+          }
+          itens.splice(i + quantidade + 1, 0, item);
+        }else{
+          for (let i2 = 0; i2 < quantidade; i2++) {
+            itens[i + i2 + 1] = 1;
+          }
+        }
+
+        if(quantidade == 0 && condicao){
+          itens = [];
+          msg += "Sem nenhum bloco dentro da repetição, prevê-se repetições infinitas!";
+        }else{
+          msg += condicao? "Sim" : "Não";
+        }
+
+        
+      }else if(acao === "seIgual"){
+        msg += valorTrabalho + " é igual a " + numero + " ? ";
+        var listas2 = item.querySelectorAll('.lista');
+
+        var tamanhoSe = listas2[0].querySelectorAll('.item').length;
+        var tamanhoSeNao = listas2[1].querySelectorAll('.item').length;
+
+        const condicao = valorTrabalho == numero;
+
+        if(condicao){
+          for (let i2 = 0; i2 < tamanhoSeNao; i2++) {
+            itens[i + tamanhoSe + i2 + 1] = 1;
+          }
+        }else{
+          for (let i2 = 0; i2 < tamanhoSe; i2++) {
+            itens[i + i2 + 1] = 1;
+          }
+        }
+
+        msg += condicao? "Sim" : "Não";
       }else if(acao === "seMaior"){
         msg += valorTrabalho + " é maior ou igual a " + numero + " ? ";
         var listas2 = item.querySelectorAll('.lista');
@@ -239,20 +295,19 @@ function processar(entradas, saida){
 
         if(valorTrabalho >= numero){
           for (let i2 = 0; i2 < tamanhoSeNao; i2++) {
-            delete itens[i + tamanhoSe + i2 + 1];
+            itens[i + tamanhoSe + i2 + 1] = 1;
           }
         }else{
           for (let i2 = 0; i2 < tamanhoSe; i2++) {
-            delete itens[i + i2 + 1];
+            itens[i + i2 + 1] = 1;
           }
         }
 
         msg += valorTrabalho >= numero ? "Sim" : "Não";
       }else if(acao === "responder"){
-        if(valorFinal == null){
-          valorFinal = valorTrabalho;
-        }
+        valorFinal = valorTrabalho;
         msg += "Resposta final = " + valorFinal;
+        itens = [];
       }else{
         msg += "Instrução estranha";
       }
@@ -262,17 +317,24 @@ function processar(entradas, saida){
       li.textContent = msg;
       lista.appendChild(li);
     }
+
+    i++;
+    item = itens[i];
   }
 
   const correto = valorFinal === saida;
 
   if(correto){
     itens.forEach(item => {
-      markResult(item, true);
+      if(item != 1){
+        markResult(item, true);
+      }
     });
   }else{
     itens.forEach(item => {
-      markResult(item, false);
+      if(item != 1){
+        markResult(item, false);
+      }
     });
   }
 
