@@ -45,6 +45,6 @@ https://cmapscloud.ihmc.us:443/rid=222NBYJNP-20YSGHS-ML0KTG
 ## Modelo Instrucional
 
 Acesse o modelo instrucional no link a seguir:  
-https://lucid.app/lucidchart/05c4dcb5-3b42-439c-aa24-4aae6276ffc8/edit?viewport_loc=-936%2C512%2C2144%2C1023%2C0_0&invitationId=inv_5b7b6a38-8ac9-41b5-ab95-f6efe5277cbb
+https://lucid.app/lucidchart/cef7aa8a-bc98-4f12-90f0-ee413c15ce29/edit?viewport_loc=-167%2C-405%2C2217%2C1023%2C0_0&invitationId=inv_af93b97e-ce11-496d-9fd4-52f2aa8b9888
 
 ---
