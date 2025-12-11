@@ -1,6 +1,6 @@
 {
   "General": {
-    "identifier": "oa-intro-algoritmos-001",
+    "identifier": "oa-intro-algoritmos-grupo-10",
     "title": "Introdução a Algoritmos",
     "language": "pt-BR",
     "description": "Objeto de aprendizagem introdutório que explica o conceito de algoritmo, fluxo e estruturas de controle (sequencial, de decisão e de repetição), com algumas avaliações usando ordenação de blocos de texto e a simulação da execução deles.",
@@ -14,6 +14,6 @@
     ],
     "coverage": "5º ano do ensino fundamental I",
     "structure": "hierarchical",
-    "aggregationLevel": 1
+    "aggregationLevel": 3
   }
 }
