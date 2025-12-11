@@ -11,6 +11,9 @@ Uma versão funcional pode ser encontrada pelo link: https://luizgulhermegeron.g
 É possível baixar os arquivos desse repositório e utilizar o objeto educacional abrindo o arquivo index.html por um navegador web.
 
 ---
+## Demonstração:
+
+Aula: https://youtu.be/OCRSak5DGmc
 
 ## Requisitos de Aprendizagem (BNCC)
 
